@@ -1,13 +1,14 @@
+<h1>Comments</h1>
 
-<h1>Create Comment</h1>
-
-<form class="" action="/comments" method="post">
-  <label for="name">Name</label>
-  <input type="text-field" name="name" placeholder="name" id="name">
-
-  <label for="text">Text</label>
-  <input type="text" name="text" placeholder="comment" id="text">
-
+<ol>
+  {{#each comments}}
+  <a href='/comments/{{this.id}}'><li>{{this.name}}</li></a>
+    <ul>
+      <li>{{this.content}}</li>
+    </ul>
   <br><br>
-  <button type="submit">Create Comment</button>
-</form>
+  {{/each}}
+</ol>
+
+<br><br>
+<a href="/comments/new">Create New Comment</a>
