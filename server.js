@@ -11,7 +11,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 const commentsRoutes = require('./routes/comments/routes.js')
+const usersRoutes = require('./routes/users/routes.js')
+
 app.use('/comments', commentsRoutes)
+app.use('/users', usersRoutes)
 
 app.listen(3000, function() {
   console.log('listening on port 3000')
