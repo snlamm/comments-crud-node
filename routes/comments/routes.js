@@ -1,19 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path')
-var sequelize = require('../../database/config')
+// var sequelize = require('../../database/config')
 var escaper = require('validator/lib/escape')
+var Comment = require('./model')
+// var Comment = sequelize.define('comment', {
+//   name: {
+//     type: Sequelize.STRING
+//   },
+//   content: {
+//     type: Sequelize.STRING
+//   }
+// })
 
-var Comment = sequelize.define('comment', {
-  name: {
-    type: Sequelize.STRING
-  },
-  content: {
-    type: Sequelize.STRING
-  }
-})
-
-Comment.sync({force: false})
 // User.sync({force: false}).then(function () {
 //   // Table created
 // });
