@@ -1,4 +1,4 @@
-var sequelize = require('../../database/config')
+var sequelize = require('../database/config')
 
 var Comment = sequelize.define('comment', {
   name: {
