@@ -63,7 +63,6 @@ var deleteComment = (req, res, next) => {
   })
 }
 
-
 module.exports = {
   index: index,
   newComment: newComment,
