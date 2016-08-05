@@ -4,7 +4,10 @@ var Comment = db.comment
 
 
 var index = (req, res, next) => {
-  Comment.findAll().then((comments) => {
+  Comment.findAll({
+    attributes: ['id', 'name', 'content']
+  })
+  .then((comments) => {
     res.render('comments/index', {comments: comments})
   })
 }
