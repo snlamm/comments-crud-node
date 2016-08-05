@@ -15,7 +15,6 @@ var newComment = (req, res, next) => {
 
 var createComment = (req, res, next) => {
   let comment = req.body
-  console.log(comment)
   let name = escaper(comment["name"])
   let content = escaper(comment["content"])
   Comment.create({

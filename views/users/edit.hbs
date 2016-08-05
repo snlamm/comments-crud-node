@@ -1,0 +1,12 @@
+<h1>Edit User</h1>
+
+<form class="" action="/users/{{user.id}}/update" method="post">
+  <label for="name">Name</label>
+  <input type="text-field" name="name" placeholder={{user.name}} id="name" value={{user.name}}>
+
+  <br><br>
+  <button type="submit">Edit User</button>
+</form>
+
+<br>
+<a href="/users/{{user.id}}">Back to Users Show</a>
