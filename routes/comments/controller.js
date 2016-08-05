@@ -1,6 +1,6 @@
 var escaper = require('validator/lib/escape')
-var models = require('../../models')
-var Comment = models.comment
+var db = require('../../models')
+var Comment = db.comment
 
 
 var index = (req, res, next) => {

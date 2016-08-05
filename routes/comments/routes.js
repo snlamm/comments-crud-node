@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var models = require('../../models')
-var Comment = models.comment
+var db = require('../../models')
+var Comment = db.comment
 var commentsController = require('./controller')
+
+Comment.sync({force: false})
 
 router.get('/', (req, res, next) => {
   commentsController.index(req, res, next)
