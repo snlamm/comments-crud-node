@@ -6,13 +6,3 @@ module.exports = (sequelize, DataTypes) => {
   })
   return User
 }
-
-// module.exports = User
-
-
-// ,
-// validate: {
-//   notEmpty: true
-// },
-// allowNull: false,
-// unique: true

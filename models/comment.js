@@ -10,7 +10,3 @@ module.exports = (sequelize, DataTypes) => {
   })
   return Comment
 }
-
-// Comment.sync({force: false})
-
-// module.exports = Comment
