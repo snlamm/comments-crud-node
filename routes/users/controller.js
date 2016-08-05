@@ -1,5 +1,5 @@
-var models = require('../../models')
-var User = models.user
+var db = require('../../models')
+var User = db.user
 
 
 var index = (req, res, next) => {

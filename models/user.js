@@ -1,14 +1,13 @@
-var sequelize = require('../database/config')
+module.exports = (sequelize, DataTypes) => {
+  var User = sequelize.define('user', {
+    name: {
+      type: DataTypes.STRING
+    }
+  })
+  return User
+}
 
-var User = sequelize.define('user', {
-  name: {
-    type: Sequelize.STRING
-  }
-})
-
-User.sync({force: false})
-
-module.exports = User
+// module.exports = User
 
 
 // ,
