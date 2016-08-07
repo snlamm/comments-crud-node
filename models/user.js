@@ -3,6 +3,12 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING
     }
+  },{
+    classMethods: {
+      associate: function(models){
+        User.hasMany(models.comment);
+      }
+    }
   })
   return User
 }

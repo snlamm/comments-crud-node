@@ -7,6 +7,13 @@ module.exports = (sequelize, DataTypes) => {
     content: {
       type: DataTypes.STRING
     }
+  },
+  {
+    classMethods: {
+      associate: function(models){
+        Comment.belongsTo(models.user);
+      }
+    }
   })
   return Comment
 }
