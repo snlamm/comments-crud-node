@@ -2,9 +2,9 @@
 
 <ol>
   {{#each comments}}
-  <a href='/comments/{{this.id}}'><li>{{this.name}}</li></a>
+  <a href='/users/{{this.user.id}}'><li>{{this.user.name}}</li></a>
     <ul>
-      <li>{{this.content}}</li>
+      <a href='/comments/{{this.id}}'><li>{{this.content}}</li></a>
     </ul>
   <br><br>
   {{/each}}

@@ -2,8 +2,14 @@
 <h1>Create Comment</h1>
 
 <form class="" action="/comments" method="post">
-  <label for="name">Name</label>
-  <input type="text-field" name="name" placeholder="name" id="name">
+  <!-- <label for="name">Name</label>
+  <input type="text-field" name="name" placeholder="name" id="name"> -->
+  <label for='user'>User</label>
+  <select class="" name='user' id='user'>
+    {{#each users}}
+      <option value='{{this.id}}'>{{this.name}}</option>
+    {{/each}}
+  </select>
 
   <label for="content">Text</label>
   <input type="text" name="content" placeholder="content" id="content">
