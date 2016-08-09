@@ -30,6 +30,7 @@ var createUser = (req, res, next) => {
 }
 
 var editUser = (req, res, next) => {
+  // TODO: edit user through using $not to make a clean select bar and by chaining promises instead of using promises.all
   User.findById(req.params.id).then((user) => {
     res.render('users/edit', {user: user})
   })
