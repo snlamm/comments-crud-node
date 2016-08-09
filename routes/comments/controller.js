@@ -19,7 +19,9 @@ var index = (req, res, next) => {
 }
 
 var newComment = (req, res, next) => {
-  User.findAll().then((users) => {
+  User.findAll({
+    attributes: ['id', 'name']
+  }).then((users) => {
     res.render('comments/new', {users: users})
   })
 }
@@ -38,24 +40,34 @@ var createComment = (req, res, next) => {
 }
 
 var showComment = (req, res, next) => {
-  Comment.findById(req.params.id).then((comment) => {
+  Comment.findById(req.params.id, {
+    include: [{model: User}]
+  }).then((comment) => {
     res.render('comments/show', {comment: comment})
   })
 }
 
 var editComment = (req, res, next) => {
-  Comment.findById(req.params.id).then((comment) => {
-    res.render('comments/edit', {comment: comment})
+  db.sequelize.Promise.all([
+    Comment.findById(req.params.id, {
+      include: [{model: User}]
+    }),
+    User.findAll({
+      attributes: ['id', 'name']
+    })
+  ])
+  .spread((comment, users) => {
+    res.render('comments/edit', {comment: comment, users: users})
   })
 }
 
 var updateComment = (req, res, next) => {
   Comment.findById(req.params.id).then((comment) => {
     let commentUpdate = req.body
-    let name = escaper(commentUpdate["name"])
+    let userId = toInt(commentUpdate["user"])
     let content = escaper(commentUpdate['content'])
     comment.update({
-      name: name,
+      userId: userId,
       content: content
     })
     .then((comment) => {
