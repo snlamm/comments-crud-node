@@ -1,15 +1,22 @@
-var db = require('../../models')
-var User = db.user
+const toInt = require('validator/lib/toInt')
+const db = require('../../models')
+const User = db.user
+const Comment = db.comment
 
 
 var index = (req, res, next) => {
-  User.findAll().then((users) => {
+  // TODO: order by name
+  User.findAll({
+    order: ['name']
+  }).then((users) => {
     res.render('users/index', {users: users})
   })
 }
 
 var showUser = (req, res, next) => {
-  User.findById(req.params.id).then((user) => {
+  User.findById(req.params.id, {
+    include: [{model: Comment}]
+  }).then((user) => {
     res.render('users/show', {user: user})
   })
 }
@@ -30,7 +37,6 @@ var createUser = (req, res, next) => {
 }
 
 var editUser = (req, res, next) => {
-  // TODO: edit user through using $not to make a clean select bar and by chaining promises instead of using promises.all
   User.findById(req.params.id).then((user) => {
     res.render('users/edit', {user: user})
   })

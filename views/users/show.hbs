@@ -1,9 +1,22 @@
 <h1>Show User</h1>
 
 <h4>Name: {{user.name}}</h4>
-
+<br>
+<ul>
+  {{#each user.comments}}
+  <li>
+    <a href="/comments/{{this.id}}">
+      {{this.content}}
+    </a>
+  </li>
+  <br>
+  {{/each}}
+</ul>
+<br><br>
 <a href="/users">Back to Users</a>
 <br><br>
 <a href="/users/{{user.id}}/edit">Edit User</a>
 <br>
 <a href="/users/{{user.id}}/delete">Delete User</a>
+<br>
+<a href="/comments/new">Create New Comment</a>

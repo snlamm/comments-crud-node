@@ -7,7 +7,8 @@ const User = db.user
 
 var index = (req, res, next) => {
   Comment.findAll({
-    attributes: ['id', 'content'],
+    attributes: ['id', 'content', 'createdAt'],
+    order: ['createdAt'],
     include: [{
       model: User,
       attributes: ['id', 'name']
