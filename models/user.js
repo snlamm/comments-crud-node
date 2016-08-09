@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   },{
     classMethods: {
       associate: function(models){
-        User.hasMany(models.comment);
+        User.hasMany(models.comment, {onDelete: 'cascade', hooks: true});
       }
     }
   })
