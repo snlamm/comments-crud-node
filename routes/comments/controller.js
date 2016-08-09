@@ -1,11 +1,17 @@
-var escaper = require('validator/lib/escape')
-var db = require('../../models')
-var Comment = db.comment
+const escaper = require('validator/lib/escape')
+const toInt = require('validator/lib/toInt')
+const db = require('../../models')
+const Comment = db.comment
+const User = db.user
 
 
 var index = (req, res, next) => {
   Comment.findAll({
-    attributes: ['id', 'name', 'content']
+    attributes: ['id', 'content'],
+    include: [{
+      model: User,
+      attributes: ['id', 'name']
+    }]
   })
   .then((comments) => {
     res.render('comments/index', {comments: comments})
@@ -13,16 +19,18 @@ var index = (req, res, next) => {
 }
 
 var newComment = (req, res, next) => {
-  res.render('comments/new')
+  User.findAll().then((users) => {
+    res.render('comments/new', {users: users})
+  })
 }
 
 var createComment = (req, res, next) => {
   let comment = req.body
-  let name = escaper(comment["name"])
+  let userId = toInt(comment["user"])
   let content = escaper(comment["content"])
   Comment.create({
-    name: name,
-    content: content
+    content: content,
+    userId: userId
   })
   .then(() => {
     res.redirect('/comments')
