@@ -1,15 +1,20 @@
-var db = require('../../models')
-var User = db.user
+const toInt = require('validator/lib/toInt')
+const db = require('../../models')
+const User = db.user
+const Comment = db.comment
 
 
 var index = (req, res, next) => {
+  // TODO: order by name
   User.findAll().then((users) => {
     res.render('users/index', {users: users})
   })
 }
 
 var showUser = (req, res, next) => {
-  User.findById(req.params.id).then((user) => {
+  User.findById(req.params.id, {
+    include: [{model: Comment}]
+  }).then((user) => {
     res.render('users/show', {user: user})
   })
 }
