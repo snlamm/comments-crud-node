@@ -1,14 +1,18 @@
-const express = require('express')
-const app = express()
-var dotEnv = require('dotenv').config();
-const path = require('path')
-const hbs = require('hbs')
-const bodyParser = require('body-parser')
+/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "hbs|dotEnv" }]*/
 
-app.use(bodyParser.urlencoded({ extended: false }));
+const express = require('express'),
+  app = express(),
+  dotEnv = require('dotenv').config(),
+  path = require('path'),
+  hbs = require('hbs'),
+  bodyParser = require('body-parser'),
+  morgan = require('morgan')
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+app.use(morgan('dev'))
+app.use(bodyParser.urlencoded({ extended: false }))
+
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'hbs')
 
 const commentsRoutes = require('./routes/comments/routes.js')
 const usersRoutes = require('./routes/users/routes.js')
