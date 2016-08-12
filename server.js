@@ -1,10 +1,12 @@
-const express = require('express')
-const app = express()
-var dotEnv = require('dotenv').config();
-const path = require('path')
-const hbs = require('hbs')
-const bodyParser = require('body-parser')
+const express = require('express'),
+  app = express(),
+  dotEnv = require('dotenv').config(),
+  path = require('path'),
+  hbs = require('hbs'),
+  bodyParser = require('body-parser'),
+  morgan = require('morgan')
 
+app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set('views', path.join(__dirname, 'views'));
