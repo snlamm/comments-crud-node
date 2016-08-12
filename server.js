@@ -1,3 +1,5 @@
+/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "hbs|dotEnv" }]*/
+
 const express = require('express'),
   app = express(),
   dotEnv = require('dotenv').config(),
@@ -7,10 +9,10 @@ const express = require('express'),
   morgan = require('morgan')
 
 app.use(morgan('dev'))
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }))
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'hbs')
 
 const commentsRoutes = require('./routes/comments/routes.js')
 const usersRoutes = require('./routes/users/routes.js')
