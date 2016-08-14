@@ -10,7 +10,7 @@ Comment.sync({force: false})
 //   commentsController.index(req, res, next)
 // })
 
-router.get('/', (req, res) => {
+router.get('/', (ignore, res) => {
   commentsController.getAllComments()
     .then(function (comments) {
         res.json(comments);
