@@ -1,23 +1,30 @@
-const escaper = require('validator/lib/escape')
-const toInt = require('validator/lib/toInt')
-const db = require('../../models')
-const Comment = db.comment
-const User = db.user
+const escaper = require('validator/lib/escape');
+const toInt = require('validator/lib/toInt');
+const db = require('../../models');
+const Comment = db.comment;
+const User = db.user;
+const Promise = require('bluebird');
 
-
-var index = (req, res, next) => {
-  Comment.findAll({
+const findAllComments = function () {
+  return Comment.findAll({
     attributes: ['id', 'content', 'createdAt'],
     order: ['createdAt'],
     include: [{
       model: User,
       attributes: ['id', 'name']
     }]
-  })
-  .then((comments) => {
-    res.render('comments/index', {comments: comments})
-  })
-}
+  });
+};
+
+const getAllComments = function () {
+  return findAllComments()
+    .then(function (comments) {
+      if (!comments) {
+        throw {code: 404, message: `Can't find any comments`};
+      }
+      return comments;
+    });
+};
 
 var newComment = (req, res, next) => {
   User.findAll({
@@ -26,6 +33,43 @@ var newComment = (req, res, next) => {
     res.render('comments/new', {users: users})
   })
 }
+
+const getUserById = function (userId) {
+  return User.findById(userId);
+};
+
+const requiredCommentFieldsExist = function (content, userId) {
+  if (!content || !userId) {
+    throw {code: 400, message:`Can't find user by id ${userId}`};
+  }
+};
+
+const createComment = function (load) {
+  const content = load.content;
+  const userId = load.userId;
+
+  return Promise.resolve(requiredCommentFieldsExist(content, userId))
+    .then(function () {
+      return getUserById(userId);
+    })
+    .then(function (user) {
+      if (!user) {
+        throw {code: 404, message:`Can't find user by id ${userId}`};
+      }
+
+      return user;
+    })
+    .then(function () {
+      return Comment.create({
+        content: content,
+        userId: userId
+      });
+    })
+    .then((comment) => {
+      return comment;
+    });
+};
+
 
 var createComment = (req, res, next) => {
   let comment = req.body
@@ -87,9 +131,10 @@ var deleteComment = (req, res, next) => {
 }
 
 module.exports = {
-  index: index,
+  // index: index,
+  getAllComments,
   newComment: newComment,
-  createComment: createComment,
+  createComment,
   showComment: showComment,
   editComment: editComment,
   updateComment: updateComment,
